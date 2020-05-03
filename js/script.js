@@ -1,5 +1,6 @@
 //https://drive.google.com/file/d/1Vw658-9KUiUZ5yHaABvkytC9W2QBYiW_/view
 
+
 //job role section
 document.querySelector("#other-title").style.display = 'none';
 
@@ -82,8 +83,10 @@ activitiesSection.addEventListener('change', (event) => {
     if (targetDayTime === currDayTime && eventTarget !== currInput){
       if (eventTarget.checked){
         currInput.disabled = true;
+        currInput.parentNode.style.color = 'grey';
       } else {
         currInput.disabled = false;
+        currInput.parentNode.style.color = 'black';
       }
     }
   }
@@ -122,6 +125,131 @@ paymentSelect.addEventListener('change', (event) => {
 });
 
 //payment section end.
+
+//validation
+const form = document.querySelector('form');
+const name = document.querySelector('#name');
+const email = document.querySelector('#mail');
+const activitiesField = document.querySelector('.activities');
+const creditNbr = document.querySelector('#cc-num');
+const zip = document.querySelector('#zip');
+const cvv = document.querySelector('#cvv');
+
+const nameMsgDiv = document.createElement('div');
+const emailMsgDiv = document.createElement('div');
+const activitiesMsgDiv = document.createElement('div');
+const creditNbrMsgDiv = document.createElement('div');
+const zipMsgDiv = document.createElement('div');
+const cvvMsgDiv = document.createElement('div');
+
+const nameValidator = () => {
+  const nameValue = name.value;
+
+  if (nameValue.length > 0){
+    name.style.borderColor = 'white';
+    return true;
+  } else {
+    name.style.borderColor = 'red';
+    return false;
+  }
+
+}
+
+const emailValidator = () => {
+  const emailValue = email.value;
+  const regex = /^[^@]+@[^@.]+\.[a-z]+$/i;
+
+  if (regex.test(emailValue)){
+    email.style.borderColor = 'white';
+    return true;
+  } else {
+    email.style.borderColor = 'red';
+    return false;
+  }
+}
+
+const activitiesValidator = () => {
+  for (let i = 0; i < activitiesInputs.length; i++){
+    if (activitiesInputs[i].checked){
+      activitiesField.style.borderColor = 'white';
+      activitiesField.style.borderStyle = 'solid';
+      return true;
+    }
+  }
+  activitiesField.style.borderColor = 'red';
+  activitiesField.style.borderStyle = 'solid';
+  return false;
+}
+
+const creditNbrValidator = () => {
+  const creditNbrValue = creditNbr.value;
+  const regex = /^[0-9]{13,16}$/;
+
+  if(regex.test(creditNbrValue)){
+    creditNbr.style.borderColor = 'white';
+    return true;
+  } else {
+    creditNbr.style.borderColor = 'red';
+    return false;
+  }
+}
+
+const zipValidator = () => {
+  const zipValue = zip.value;
+  const regex = /^[0-9]{5}$/;
+
+  if(regex.test(zipValue)){
+    zip.style.borderColor = 'white';
+    return true;
+  } else {
+    zip.style.borderColor = 'red';
+    return false;
+  }
+}
+
+const cvvValidator = () => {
+  const cvvValue = cvv.value;
+  const regex = /^[0-9]{3}$/;
+
+  if(regex.test(cvvValue)){
+    cvv.style.borderColor = 'white';
+    return true;
+  } else {
+    cvv.style.borderColor = 'red';
+    return false;
+  }
+}
+
+form.addEventListener('submit', (event) => {
+  if (!nameValidator()){
+    event.preventDefault();
+    console.log("name validator prevented submission");
+  }
+  if (!emailValidator()){
+    event.preventDefault();
+    console.log("email validator prevented submission");
+  }
+  if (!activitiesValidator()){
+    event.preventDefault();
+    console.log("activities validator prevented submission");
+  }
+
+  if (paymentSelect.value === 'credit card'){
+    if (!creditNbrValidator()){
+      event.preventDefault();
+      console.log("credit number validator prevented submission");
+    }
+    if (!zipValidator()){
+      event.preventDefault();
+      console.log("zip validator prevented submission");
+    }
+    if (!cvvValidator()){
+      event.preventDefault();
+      console.log("cvv validator prevented submission");
+    }
+  }
+
+});
 
 window.onload = () => {
   let input = document.getElementById("name").focus();
