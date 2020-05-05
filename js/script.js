@@ -220,35 +220,19 @@ const cvvValidator = () => {
   }
 }
 
+const masterValidator = () => {
+  if (paymentSelect.value === 'credit card' || paymentSelect.value === 'select method'){
+    return nameValidator() & emailValidator() & activitiesValidator()
+        & creditNbrValidator() & zipValidator() & cvvValidator();
+  } else {
+    return nameValidator() & emailValidator() & activitiesValidator();
+  }
+}
+
 form.addEventListener('submit', (event) => {
-  if (!nameValidator()){
+  if (!masterValidator()){
     event.preventDefault();
-    console.log("name validator prevented submission");
   }
-  if (!emailValidator()){
-    event.preventDefault();
-    console.log("email validator prevented submission");
-  }
-  if (!activitiesValidator()){
-    event.preventDefault();
-    console.log("activities validator prevented submission");
-  }
-
-  if (paymentSelect.value === 'credit card'){
-    if (!creditNbrValidator()){
-      event.preventDefault();
-      console.log("credit number validator prevented submission");
-    }
-    if (!zipValidator()){
-      event.preventDefault();
-      console.log("zip validator prevented submission");
-    }
-    if (!cvvValidator()){
-      event.preventDefault();
-      console.log("cvv validator prevented submission");
-    }
-  }
-
 });
 
 window.onload = () => {
