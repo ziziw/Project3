@@ -2,7 +2,19 @@
 
 
 //job role section
-document.querySelector("#other-title").style.display = 'none';
+const otherText = document.querySelector("#other-title");
+const jobSelect = document.querySelector('#title');
+const jobRoles = document.querySelectorAll('#title value');
+
+otherText.style.display = 'none';
+
+jobSelect.addEventListener('change', (event) => {
+  if(event.target.value === 'other'){
+    otherText.style.display = '';
+  } else {
+    otherText.style.display = 'none';
+  }
+});
 
 //job role section end
 
