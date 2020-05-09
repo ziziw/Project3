@@ -131,6 +131,7 @@ const form = document.querySelector('form');
 const name = document.querySelector('#name');
 const email = document.querySelector('#mail');
 const activitiesField = document.querySelector('.activities');
+const activitiesLegend = document.querySelector('.activities legend');
 const creditNbr = document.querySelector('#cc-num');
 const zip = document.querySelector('#zip');
 const cvv = document.querySelector('#cvv');
@@ -171,13 +172,11 @@ const emailValidator = () => {
 const activitiesValidator = () => {
   for (let i = 0; i < activitiesInputs.length; i++){
     if (activitiesInputs[i].checked){
-      activitiesField.style.borderColor = 'white';
-      activitiesField.style.borderStyle = 'solid';
+      activitiesLegend.style.color = 'white';
       return true;
     }
   }
-  activitiesField.style.borderColor = 'red';
-  activitiesField.style.borderStyle = 'solid';
+  activitiesLegend.style.color = 'red';
   return false;
 }
 
