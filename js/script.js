@@ -148,6 +148,9 @@ const creditNbr = document.querySelector('#cc-num');
 const zip = document.querySelector('#zip');
 const cvv = document.querySelector('#cvv');
 
+// const nameLabel = document.querySelector("label[for='name']");
+// const emailLabel = document.querySelector("label[for='mail']");
+
 const nameMsgDiv = document.createElement('div');
 const emailMsgDiv = document.createElement('div');
 const activitiesMsgDiv = document.createElement('div');
@@ -158,11 +161,17 @@ const cvvMsgDiv = document.createElement('div');
 const nameValidator = () => {
   const nameValue = name.value;
 
+  nameMsgDiv.innerText = 'Please provide your name.';
+  nameMsgDiv.style.color = 'red';
+  name.parentNode.insertBefore(nameMsgDiv, name);
+
   if (nameValue.length > 0){
     name.style.borderColor = 'white';
+    nameMsgDiv.hidden = true;
     return true;
   } else {
     name.style.borderColor = 'red';
+    nameMsgDiv.hidden = false;
     return false;
   }
 
@@ -172,16 +181,26 @@ const emailValidator = () => {
   const emailValue = email.value;
   const regex = /^[^@]+@[^@.]+\.[a-z]+$/i;
 
+  emailMsgDiv.innerText = 'Please provide a valid email.';
+  emailMsgDiv.style.color = 'red';
+  email.parentNode.insertBefore(emailMsgDiv, email);
+
   if (regex.test(emailValue)){
     email.style.borderColor = 'white';
+    emailMsgDiv.hidden = true;
     return true;
   } else {
     email.style.borderColor = 'red';
+    emailMsgDiv.hidden = false;
     return false;
   }
 }
 
 const activitiesValidator = () => {
+  activitiesMsgDiv.innerText = 'Please choose an activity.';
+  activitiesMsgDiv.style.color = 'red';
+  activitiesSection.insertBefore(activitiesMsgDiv, costDiv);
+
   for (let i = 0; i < activitiesInputs.length; i++){
     if (activitiesInputs[i].checked){
       activitiesLegend.style.color = 'white';
