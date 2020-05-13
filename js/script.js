@@ -23,6 +23,7 @@ const designSelect = document.querySelector('#design');
 const designOptions = document.querySelectorAll('#design option');
 const colorOptions = document.querySelectorAll('#color option');
 const colorSelect = document.querySelector('#color');
+const colorDiv = document.querySelector('#colors-js-puns');
 
 //create SelectThemeOption option, add at the beginning.
 const pleaseOption = document.createElement('option');
@@ -36,6 +37,9 @@ designOptions[0].hidden = true;
 //Select Theme Option is selected on load.
 newColorOptions[0].selected = true;
 
+//hide color div (color label + select options).
+colorDiv.hidden = true;
+
 //hide all color options. except Please Select Option.
 for (let i = 1; i < newColorOptions.length; i++){
   newColorOptions[i].hidden = true;
@@ -43,6 +47,8 @@ for (let i = 1; i < newColorOptions.length; i++){
 
 designSelect.addEventListener('change', (event) => {
   newColorOptions[0].hidden = true;
+  colorDiv.hidden = false;
+
   if (event.target.value === 'js puns'){
     newColorOptions[1].selected = true;
     for (let x = 1; x < newColorOptions.length; x++){
