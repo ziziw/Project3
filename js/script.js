@@ -163,15 +163,18 @@ const nameValidator = () => {
 
   nameMsgDiv.innerText = 'Please provide your name.';
   nameMsgDiv.style.color = 'red';
-  name.parentNode.insertBefore(nameMsgDiv, name);
+  nameMsgDiv.style.marginBottom = '1.125em';
+  name.parentNode.insertBefore(nameMsgDiv, name.nextSibling);
 
   if (nameValue.length > 0){
     name.style.borderColor = 'white';
     nameMsgDiv.hidden = true;
+    name.style.marginBottom = '1.125em';
     return true;
   } else {
     name.style.borderColor = 'red';
     nameMsgDiv.hidden = false;
+    name.style.marginBottom = '0';
     return false;
   }
 
@@ -183,15 +186,18 @@ const emailValidator = () => {
 
   emailMsgDiv.innerText = 'Please provide a valid email.';
   emailMsgDiv.style.color = 'red';
-  email.parentNode.insertBefore(emailMsgDiv, email);
+  emailMsgDiv.style.marginBottom = '1.125em';
+  email.parentNode.insertBefore(emailMsgDiv, email.nextSibling);
 
   if (regex.test(emailValue)){
     email.style.borderColor = 'white';
     emailMsgDiv.hidden = true;
+    email.style.marginBottom = '1.125em';
     return true;
   } else {
     email.style.borderColor = 'red';
     emailMsgDiv.hidden = false;
+    email.style.marginBottom = '0';
     return false;
   }
 }
@@ -199,15 +205,20 @@ const emailValidator = () => {
 const activitiesValidator = () => {
   activitiesMsgDiv.innerText = 'Please choose an activity.';
   activitiesMsgDiv.style.color = 'red';
+  activitiesMsgDiv.style.marginBottom = '1.125em';
   activitiesSection.insertBefore(activitiesMsgDiv, costDiv);
 
   for (let i = 0; i < activitiesInputs.length; i++){
     if (activitiesInputs[i].checked){
       activitiesLegend.style.color = 'white';
+      activitiesMsgDiv.hidden = true;
+      activitiesMsgDiv.previousElementSibling.style.marginBottom = '0.5em';
       return true;
     }
   }
   activitiesLegend.style.color = 'red';
+  activitiesMsgDiv.hidden = false;
+  activitiesMsgDiv.previousElementSibling.style.marginBottom = '0';
   return false;
 }
 
@@ -215,11 +226,20 @@ const creditNbrValidator = () => {
   const creditNbrValue = creditNbr.value;
   const regex = /^[0-9]{13,16}$/;
 
+  creditNbrMsgDiv.innerText = 'Please enter a valid credit card number.';
+  creditNbrMsgDiv.style.color = 'red';
+  creditNbrMsgDiv.style.marginBottom = '1.125em';
+  creditNbr.parentNode.insertBefore(creditNbrMsgDiv, creditNbr.nextSibling);
+
   if(regex.test(creditNbrValue)){
     creditNbr.style.borderColor = 'white';
+    creditNbr.style.marginBottom = '1.125em';
+    creditNbrMsgDiv.hidden = true;
     return true;
   } else {
     creditNbr.style.borderColor = 'red';
+    creditNbr.style.marginBottom = '0';
+    creditNbrMsgDiv.hidden = false;
     return false;
   }
 }
@@ -228,11 +248,20 @@ const zipValidator = () => {
   const zipValue = zip.value;
   const regex = /^[0-9]{5}$/;
 
+  zipMsgDiv.innerText = 'zip not valid.';
+  zipMsgDiv.style.color = 'red';
+  zipMsgDiv.style.marginBottom = '1.125em';
+  zip.parentNode.insertBefore(zipMsgDiv, zip.nextSibling);
+
   if(regex.test(zipValue)){
     zip.style.borderColor = 'white';
+    zip.style.marginBottom = '1.125em';
+    zipMsgDiv.hidden = true;
     return true;
   } else {
     zip.style.borderColor = 'red';
+    zip.style.marginBottom = '0';
+    zipMsgDiv.hidden = false;
     return false;
   }
 }
@@ -241,11 +270,20 @@ const cvvValidator = () => {
   const cvvValue = cvv.value;
   const regex = /^[0-9]{3}$/;
 
+  cvvMsgDiv.innerText = 'cvv not valid.';
+  cvvMsgDiv.style.color = 'red';
+  cvvMsgDiv.style.marginBottom = '1.125em';
+  cvv.parentNode.insertBefore(cvvMsgDiv, cvv.nextSibling);
+
   if(regex.test(cvvValue)){
     cvv.style.borderColor = 'white';
+    cvv.style.marginBottom = '1.125em';
+    cvvMsgDiv.hidden = true;
     return true;
   } else {
     cvv.style.borderColor = 'red';
+    cvv.style.marginBottom = '0';
+    cvvMsgDiv.hidden = false;
     return false;
   }
 }
