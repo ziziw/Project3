@@ -1,13 +1,12 @@
-//https://drive.google.com/file/d/1Vw658-9KUiUZ5yHaABvkytC9W2QBYiW_/view
-
-
 //job role section
 const otherText = document.querySelector("#other-title");
 const jobSelect = document.querySelector('#title');
 const jobRoles = document.querySelectorAll('#title value');
 
+//hide the other text input.
 otherText.style.display = 'none';
 
+//show the other text input only when 'other' is selected.
 jobSelect.addEventListener('change', (event) => {
   if(event.target.value === 'other'){
     otherText.style.display = '';
@@ -15,8 +14,7 @@ jobSelect.addEventListener('change', (event) => {
     otherText.style.display = 'none';
   }
 });
-
-//job role section end
+//job role section end.
 
 //t-shirt section
 const designSelect = document.querySelector('#design');
@@ -45,8 +43,11 @@ for (let i = 1; i < newColorOptions.length; i++){
   newColorOptions[i].hidden = true;
 }
 
+//show the right colors depending on the selected design.
 designSelect.addEventListener('change', (event) => {
   newColorOptions[0].hidden = true;
+
+  //Show color div (color label + select options).
   colorDiv.hidden = false;
 
   if (event.target.value === 'js puns'){
@@ -69,7 +70,6 @@ designSelect.addEventListener('change', (event) => {
     }
   }
 });
-
 //t-shirt section end
 
 //activities section
@@ -86,14 +86,17 @@ activitiesSection.addEventListener('change', (event) => {
   const targetCost = parseInt(eventTarget.getAttribute('data-cost'));
   const targetDayTime = eventTarget.getAttribute('data-day-and-time');
 
+  //calculate the right totalCost.
   if (eventTarget.checked){
     totalActivityCost += targetCost;
   } else {
     totalActivityCost -= targetCost;
   }
 
+  //show the totalCost.
   costDiv.textContent = "Total: $" + totalActivityCost;
 
+  //disable and grey-out activities that conflit.
   for (let i = 0; i < activitiesInputs.length; i++){
     const currInput = activitiesInputs[i];
     const currDayTime = currInput.getAttribute('data-day-and-time');
@@ -119,11 +122,14 @@ const paymentSelect = document.querySelector('#payment');
 const creditDiv = document.querySelector('#credit-card');
 const paypalDiv = document.querySelector('#paypal');
 const bitcoinDiv = document.querySelector('#bitcoin');
+//hide the select payment method option.
 paymentOptions[0].hidden = true;
 
+//hide paypal div and bitcoin div.
 paypalDiv.hidden = true;
 bitcoinDiv.hidden = true;
 
+//show the right Div depending on the payment method selected.
 paymentSelect.addEventListener('change', (event) => {
   const eventValue = event.target.value;
 
@@ -161,6 +167,7 @@ const creditNbrMsgDiv = document.createElement('div');
 const zipMsgDiv = document.createElement('div');
 const cvvMsgDiv = document.createElement('div');
 
+//add personal design to error message divs.
 nameMsgDiv.classList.add('msg-div');
 emailMsgDiv.classList.add('msg-div');
 activitiesMsgDiv.classList.add('msg-div');
@@ -168,6 +175,7 @@ creditNbrMsgDiv.classList.add('msg-div');
 zipMsgDiv.classList.add('msg-div');
 cvvMsgDiv.classList.add('msg-div');
 
+//add real-time error message to the name input.
 name.addEventListener('keyup', () => {
   return nameValidator();
 });
@@ -192,6 +200,7 @@ const nameValidator = () => {
 
 }
 
+//add real-time error message to the email input.
 email.addEventListener('keyup', () => {
     return emailValidator();
 });
@@ -234,6 +243,7 @@ const activitiesValidator = () => {
   return false;
 }
 
+//add real-time error message to the credit number input.
 creditNbr.addEventListener('keyup', () => {
   return creditNbrValidator();
 });
@@ -265,6 +275,7 @@ const creditNbrValidator = () => {
   }
 }
 
+//add real-time error message to the zip input.
 zip.addEventListener('keyup', () => {
   return zipValidator();
 });
@@ -296,6 +307,7 @@ const zipValidator = () => {
   }
 }
 
+//add real-time error message to the CVV input.
 cvv.addEventListener('keyup', () => {
   return cvvValidator();
 });
@@ -336,12 +348,14 @@ const masterValidator = () => {
   }
 }
 
+//run the masterValidator when submit is clicked.
 form.addEventListener('submit', (event) => {
   if (!masterValidator()){
     event.preventDefault();
   }
 });
 
+//focus on the name input when the form loads.
 window.onload = () => {
   let input = document.getElementById("name").focus();
 }
