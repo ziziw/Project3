@@ -154,9 +154,6 @@ const creditNbr = document.querySelector('#cc-num');
 const zip = document.querySelector('#zip');
 const cvv = document.querySelector('#cvv');
 
-// const nameLabel = document.querySelector("label[for='name']");
-// const emailLabel = document.querySelector("label[for='mail']");
-
 const nameMsgDiv = document.createElement('div');
 const emailMsgDiv = document.createElement('div');
 const activitiesMsgDiv = document.createElement('div');
@@ -185,6 +182,16 @@ const nameValidator = () => {
   }
 
 }
+
+email.addEventListener('keyup', (event) => {
+  if (event.target.value.length === 0){
+    email.style.borderColor = 'white';
+    emailMsgDiv.hidden = true;
+    email.style.marginBottom = '1.125em';
+  } else {
+    return emailValidator();
+  }
+});
 
 const emailValidator = () => {
   const emailValue = email.value;
