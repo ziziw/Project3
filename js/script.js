@@ -111,7 +111,6 @@ activitiesSection.addEventListener('change', (event) => {
       }
     }
   }
-
 });
 
 //activites section end
@@ -197,7 +196,6 @@ const nameValidator = () => {
     name.style.marginBottom = '0';
     return false;
   }
-
 }
 
 //add real-time error message to the email input.
