@@ -230,23 +230,30 @@ const activitiesValidator = () => {
 
 const creditNbrValidator = () => {
   const creditNbrValue = creditNbr.value;
-  const regex = /^[0-9]{13,16}$/;
+  const regexValid = /^[0-9]{13,16}$/;
+  const regexEmpty = /^$/;
 
-  creditNbrMsgDiv.innerText = 'Please enter a valid credit card number.';
   creditNbrMsgDiv.style.color = 'red';
   creditNbrMsgDiv.style.marginBottom = '1.125em';
   creditNbr.parentNode.insertBefore(creditNbrMsgDiv, creditNbr.nextSibling);
 
-  if(regex.test(creditNbrValue)){
-    creditNbr.style.borderColor = 'white';
-    creditNbr.style.marginBottom = '1.125em';
-    creditNbrMsgDiv.hidden = true;
-    return true;
-  } else {
+  if (regexEmpty.test(creditNbrValue)){
+    creditNbrMsgDiv.innerText = 'Please enter a credit card number.';
     creditNbr.style.borderColor = 'red';
     creditNbr.style.marginBottom = '0';
     creditNbrMsgDiv.hidden = false;
     return false;
+  } else if (!regexValid.test(creditNbrValue)){
+    creditNbrMsgDiv.innerText = 'Please enter a number that is between 13 and 16 digits long.';
+    creditNbr.style.borderColor = 'red';
+    creditNbr.style.marginBottom = '0';
+    creditNbrMsgDiv.hidden = false;
+    return false;
+  } else {
+    creditNbr.style.borderColor = 'white';
+    creditNbr.style.marginBottom = '1.125em';
+    creditNbrMsgDiv.hidden = true;
+    return true;
   }
 }
 
@@ -254,7 +261,7 @@ const zipValidator = () => {
   const zipValue = zip.value;
   const regex = /^[0-9]{5}$/;
 
-  zipMsgDiv.innerText = 'zip not valid.';
+  zipMsgDiv.innerText = 'Zip Code not valid.';
   zipMsgDiv.style.color = 'red';
   zipMsgDiv.style.marginBottom = '1.125em';
   zip.parentNode.insertBefore(zipMsgDiv, zip.nextSibling);
@@ -276,7 +283,7 @@ const cvvValidator = () => {
   const cvvValue = cvv.value;
   const regex = /^[0-9]{3}$/;
 
-  cvvMsgDiv.innerText = 'cvv not valid.';
+  cvvMsgDiv.innerText = 'CVV not valid.';
   cvvMsgDiv.style.color = 'red';
   cvvMsgDiv.style.marginBottom = '1.125em';
   cvv.parentNode.insertBefore(cvvMsgDiv, cvv.nextSibling);
