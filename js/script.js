@@ -183,7 +183,7 @@ name.addEventListener('keyup', () => {
 const nameValidator = () => {
   const nameValue = name.value;
 
-  nameMsgDiv.innerText = 'Please provide your name.';
+  nameMsgDiv.innerText = 'Please enter your name.';
   name.parentNode.insertBefore(nameMsgDiv, name.nextSibling);
 
   if (nameValue.length > 0){
@@ -207,21 +207,28 @@ email.addEventListener('keyup', () => {
 
 const emailValidator = () => {
   const emailValue = email.value;
-  const regex = /^[^@]+@[^@.]+\.[a-z]+$/i;
+  const regexValid = /^[^@]+@[^@.]+\.[a-z]+$/i;
+  const regexEmpty = /^$/;
 
-  emailMsgDiv.innerText = 'Please provide a valid email.';
   email.parentNode.insertBefore(emailMsgDiv, email.nextSibling);
 
-  if (regex.test(emailValue)){
-    email.classList.remove('border-red');
-    emailMsgDiv.hidden = true;
-    email.style.marginBottom = '1.125em';
-    return true;
-  } else {
+  if (regexEmpty.test(emailValue)){
+    emailMsgDiv.innerText = 'Please enter your email.';
     email.classList.add('border-red');
     emailMsgDiv.hidden = false;
     email.style.marginBottom = '0';
     return false;
+  } else if (!regexValid.test(emailValue)){
+    emailMsgDiv.innerText = 'The email is not valid.';
+    email.classList.add('border-red');
+    emailMsgDiv.hidden = false;
+    email.style.marginBottom = '0';
+    return false;
+  } else {
+    email.classList.remove('border-red');
+    emailMsgDiv.hidden = true;
+    email.style.marginBottom = '1.125em';
+    return true;
   }
 }
 
