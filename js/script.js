@@ -161,21 +161,30 @@ const creditNbrMsgDiv = document.createElement('div');
 const zipMsgDiv = document.createElement('div');
 const cvvMsgDiv = document.createElement('div');
 
+nameMsgDiv.classList.add('msg-div');
+emailMsgDiv.classList.add('msg-div');
+activitiesMsgDiv.classList.add('msg-div');
+creditNbrMsgDiv.classList.add('msg-div');
+zipMsgDiv.classList.add('msg-div');
+cvvMsgDiv.classList.add('msg-div');
+
+name.addEventListener('keyup', () => {
+  return nameValidator();
+});
+
 const nameValidator = () => {
   const nameValue = name.value;
 
   nameMsgDiv.innerText = 'Please provide your name.';
-  nameMsgDiv.style.color = 'red';
-  nameMsgDiv.style.marginBottom = '1.125em';
   name.parentNode.insertBefore(nameMsgDiv, name.nextSibling);
 
   if (nameValue.length > 0){
-    name.style.borderColor = 'white';
+    name.classList.remove('border-red');
     nameMsgDiv.hidden = true;
     name.style.marginBottom = '1.125em';
     return true;
   } else {
-    name.style.borderColor = 'red';
+    name.classList.add('border-red');
     nameMsgDiv.hidden = false;
     name.style.marginBottom = '0';
     return false;
@@ -183,14 +192,8 @@ const nameValidator = () => {
 
 }
 
-email.addEventListener('keyup', (event) => {
-  if (event.target.value.length === 0){
-    email.style.borderColor = 'white';
-    emailMsgDiv.hidden = true;
-    email.style.marginBottom = '1.125em';
-  } else {
+email.addEventListener('keyup', () => {
     return emailValidator();
-  }
 });
 
 const emailValidator = () => {
@@ -198,17 +201,15 @@ const emailValidator = () => {
   const regex = /^[^@]+@[^@.]+\.[a-z]+$/i;
 
   emailMsgDiv.innerText = 'Please provide a valid email.';
-  emailMsgDiv.style.color = 'red';
-  emailMsgDiv.style.marginBottom = '1.125em';
   email.parentNode.insertBefore(emailMsgDiv, email.nextSibling);
 
   if (regex.test(emailValue)){
-    email.style.borderColor = 'white';
+    email.classList.remove('border-red');
     emailMsgDiv.hidden = true;
     email.style.marginBottom = '1.125em';
     return true;
   } else {
-    email.style.borderColor = 'red';
+    email.classList.add('border-red');
     emailMsgDiv.hidden = false;
     email.style.marginBottom = '0';
     return false;
@@ -217,94 +218,112 @@ const emailValidator = () => {
 
 const activitiesValidator = () => {
   activitiesMsgDiv.innerText = 'Please choose an activity.';
-  activitiesMsgDiv.style.color = 'red';
-  activitiesMsgDiv.style.marginBottom = '1.125em';
   activitiesSection.insertBefore(activitiesMsgDiv, costDiv);
 
   for (let i = 0; i < activitiesInputs.length; i++){
     if (activitiesInputs[i].checked){
-      activitiesLegend.style.color = 'white';
+      activitiesLegend.classList.remove('text-red');
       activitiesMsgDiv.hidden = true;
       activitiesMsgDiv.previousElementSibling.style.marginBottom = '0.5em';
       return true;
     }
   }
-  activitiesLegend.style.color = 'red';
+  activitiesLegend.classList.add('text-red');
   activitiesMsgDiv.hidden = false;
   activitiesMsgDiv.previousElementSibling.style.marginBottom = '0';
   return false;
 }
+
+creditNbr.addEventListener('keyup', () => {
+  return creditNbrValidator();
+});
 
 const creditNbrValidator = () => {
   const creditNbrValue = creditNbr.value;
   const regexValid = /^[0-9]{13,16}$/;
   const regexEmpty = /^$/;
 
-  creditNbrMsgDiv.style.color = 'red';
-  creditNbrMsgDiv.style.marginBottom = '1.125em';
   creditNbr.parentNode.insertBefore(creditNbrMsgDiv, creditNbr.nextSibling);
 
   if (regexEmpty.test(creditNbrValue)){
     creditNbrMsgDiv.innerText = 'Please enter a credit card number.';
-    creditNbr.style.borderColor = 'red';
+    creditNbr.classList.add('border-red');
     creditNbr.style.marginBottom = '0';
     creditNbrMsgDiv.hidden = false;
     return false;
   } else if (!regexValid.test(creditNbrValue)){
     creditNbrMsgDiv.innerText = 'Please enter a number that is between 13 and 16 digits long.';
-    creditNbr.style.borderColor = 'red';
+    creditNbr.classList.add('border-red');
     creditNbr.style.marginBottom = '0';
     creditNbrMsgDiv.hidden = false;
     return false;
   } else {
-    creditNbr.style.borderColor = 'white';
+    creditNbr.classList.remove('border-red');
     creditNbr.style.marginBottom = '1.125em';
     creditNbrMsgDiv.hidden = true;
     return true;
   }
 }
 
+zip.addEventListener('keyup', () => {
+  return zipValidator();
+});
+
 const zipValidator = () => {
   const zipValue = zip.value;
-  const regex = /^[0-9]{5}$/;
+  const regexValid = /^[0-9]{5}$/;
+  const regexEmpty = /^$/;
 
-  zipMsgDiv.innerText = 'Zip Code not valid.';
-  zipMsgDiv.style.color = 'red';
-  zipMsgDiv.style.marginBottom = '1.125em';
   zip.parentNode.insertBefore(zipMsgDiv, zip.nextSibling);
 
-  if(regex.test(zipValue)){
-    zip.style.borderColor = 'white';
-    zip.style.marginBottom = '1.125em';
-    zipMsgDiv.hidden = true;
-    return true;
-  } else {
-    zip.style.borderColor = 'red';
+  if (regexEmpty.test(zipValue)){
+    zipMsgDiv.innerText = 'Please enter Zip Code.'
+    zip.classList.add('border-red');
     zip.style.marginBottom = '0';
     zipMsgDiv.hidden = false;
     return false;
+  } else if (!regexValid.test(zipValue)){
+    zipMsgDiv.innerText = 'Zip Code has to be 5 digits.'
+    zip.classList.add('border-red');
+    zip.style.marginBottom = '0';
+    zipMsgDiv.hidden = false;
+    return false;
+  } else {
+    zip.classList.remove('border-red');
+    zip.style.marginBottom = '1.125em';
+    zipMsgDiv.hidden = true;
+    return true;
   }
 }
 
+cvv.addEventListener('keyup', () => {
+  return cvvValidator();
+});
+
 const cvvValidator = () => {
   const cvvValue = cvv.value;
-  const regex = /^[0-9]{3}$/;
+  const regexValid = /^[0-9]{3}$/;
+  const regexEmpty = /^$/;
 
-  cvvMsgDiv.innerText = 'CVV not valid.';
-  cvvMsgDiv.style.color = 'red';
-  cvvMsgDiv.style.marginBottom = '1.125em';
   cvv.parentNode.insertBefore(cvvMsgDiv, cvv.nextSibling);
 
-  if(regex.test(cvvValue)){
-    cvv.style.borderColor = 'white';
-    cvv.style.marginBottom = '1.125em';
-    cvvMsgDiv.hidden = true;
-    return true;
-  } else {
-    cvv.style.borderColor = 'red';
+  if (regexEmpty.test(cvvValue)){
+    cvvMsgDiv.innerText = 'Please enter a CVV.';
+    cvv.classList.add('border-red');
     cvv.style.marginBottom = '0';
     cvvMsgDiv.hidden = false;
     return false;
+  } else if (!regexValid.test(cvvValue)){
+    cvvMsgDiv.innerText = 'CVV has to be 3 digits.';
+    cvv.classList.add('border-red');
+    cvv.style.marginBottom = '0';
+    cvvMsgDiv.hidden = false;
+    return false;
+  } else {
+    cvv.classList.remove('border-red');
+    cvv.style.marginBottom = '1.125em';
+    cvvMsgDiv.hidden = true;
+    return true;
   }
 }
 
